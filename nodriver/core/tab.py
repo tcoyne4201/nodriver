@@ -1257,15 +1257,15 @@ class Tab(Connection):
         try:
             if not t:
                 t = 0.5
-                done, pending = await asyncio.wait(
-                    [
-                        asyncio.ensure_future(event.wait()),
-                        asyncio.ensure_future(asyncio.sleep(t)),
-                    ],
-                    return_when=asyncio.FIRST_COMPLETED,
-                )
+            done, pending = await asyncio.wait(
+                [
+                    asyncio.ensure_future(event.wait()),
+                    asyncio.ensure_future(asyncio.sleep(t)),
+                ],
+                return_when=asyncio.FIRST_COMPLETED,
+            )
 
-                [p.cancel() for p in pending]
+            [p.cancel() for p in pending]
 
         finally:
             self.remove_handler(wait_events, handler=handler)
